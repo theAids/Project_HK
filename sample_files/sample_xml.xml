@@ -1,0 +1,275 @@
+<!----------formatted to a readable format(new line, indention) using external tool ----------------->
+<?xml version="1.0" encoding="UTF-8"?>
+<peopledata>
+   <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:schema="urn:schemas-microsoft-com:sql:SqlRowSet1" xmlns:sqltypes="http://schemas.microsoft.com/sqlserver/2004/sqltypes" targetNamespace="urn:schemas-microsoft-com:sql:SqlRowSet1" elementFormDefault="qualified">
+      <xsd:import namespace="http://schemas.microsoft.com/sqlserver/2004/sqltypes" schemaLocation="http://schemas.microsoft.com/sqlserver/2004/sqltypes/sqltypes.xsd" />
+      <xsd:element name="people">
+         <xsd:complexType>
+            <xsd:sequence>
+               <xsd:element name="Sys_Gen" minOccurs="0">
+                  <xsd:simpleType>
+                     <xsd:restriction base="sqltypes:nvarchar" sqltypes:localeId="1033" sqltypes:sqlCompareOptions="IgnoreCase IgnoreKanaType IgnoreWidth" sqltypes:sqlSortId="52">
+                        <xsd:maxLength value="1000" />
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="Name" minOccurs="0">
+                  <xsd:simpleType>
+                     <xsd:restriction base="sqltypes:nvarchar" sqltypes:localeId="1033" sqltypes:sqlCompareOptions="IgnoreCase IgnoreKanaType IgnoreWidth" sqltypes:sqlSortId="52">
+                        <xsd:maxLength value="1000" />
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="Sched_In" minOccurs="0">
+                  <xsd:simpleType>
+                     <xsd:restriction base="sqltypes:nvarchar" sqltypes:localeId="1033" sqltypes:sqlCompareOptions="IgnoreCase IgnoreKanaType IgnoreWidth" sqltypes:sqlSortId="52">
+                        <xsd:maxLength value="1000" />
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="Sched_Out" minOccurs="0">
+                  <xsd:simpleType>
+                     <xsd:restriction base="sqltypes:nvarchar" sqltypes:localeId="1033" sqltypes:sqlCompareOptions="IgnoreCase IgnoreKanaType IgnoreWidth" sqltypes:sqlSortId="52">
+                        <xsd:maxLength value="1000" />
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+      </xsd:element>
+   </xsd:schema>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Perez , Adrian</Sys_Gen>
+      <Name>Adrian M. Perez</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Oliveros, Nicole</Sys_Gen>
+      <Name>Aimee Nicole L. Oliveros</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Lui, Ayami Gayle</Sys_Gen>
+      <Name>Ayami Gayle Lui</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Isip , Carlo Lucas</Sys_Gen>
+      <Name>Carlo L Isip</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Ngo, Charmaine Mae R</Sys_Gen>
+      <Name>Charmaine Mae Rose O Ngo</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Roa, Christine Anne</Sys_Gen>
+      <Name>Christine Anne V. Roa</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>REYES, CHRISTINE MAR</Sys_Gen>
+      <Name>Christine Marianne B Reyes</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Sazon, Clareich</Sys_Gen>
+      <Name>Clareich Z. Sazon</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Sotelo, Erby Jennife</Sys_Gen>
+      <Name>Erby Jennifer Sotelo</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Delos Santos, Fe Mar+A20</Sys_Gen>
+      <Name>Fe Mariz Delos Santos</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Evidente , Gian Fran</Sys_Gen>
+      <Name>Gian Franco S. Evidente</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Quintanes, Jam Camil</Sys_Gen>
+      <Name>Jam Camille F. Quintanes</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Caparros, Jamaica Ma</Sys_Gen>
+      <Name>Jamaica Mae T. Caparros</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>PH011607358, Oblepia</Sys_Gen>
+      <Name>Jan Carlo A. Oblepias</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Jordan, Jezzaline</Sys_Gen>
+      <Name>Jezzaline T. Jordan</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Ordinanza, Joane Pau</Sys_Gen>
+      <Name>Joane Pau Ordinanza</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Niu, Joyce Diane</Sys_Gen>
+      <Name>Joyce Diane Go Niu</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Perez , Justine Jire</Sys_Gen>
+      <Name>Justine Jireh Perez</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Cayabyab, Karen</Sys_Gen>
+      <Name>Karen C Cayabyab</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Miguel , Karl Ann</Sys_Gen>
+      <Name>Karl Ann D Miguel</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>King, Kathryn  Ann</Sys_Gen>
+      <Name>Kathryn Ann M. King</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Nagano, Keiko</Sys_Gen>
+      <Name>Keiko B. Nagano</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Castor, Kim Anne</Sys_Gen>
+      <Name>Kim Anne M. Castor</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Cabatic, Kim</Sys_Gen>
+      <Name>Kim T Cabatic</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Tumaliuan , Kimberly</Sys_Gen>
+      <Name>Kimberly Tumaliuan</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Hao Lin , Lanz Patri</Sys_Gen>
+      <Name>Lanz Patrick J HaoLin</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Libres, Ma. Kristina</Sys_Gen>
+      <Name>Ma. Kristina E. Libres</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>CANDELARIO, MA. TRIS</Sys_Gen>
+      <Name>Ma. Trishia R. Candelario</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Dagdag , Marie Gaell</Sys_Gen>
+      <Name>Marie Gaelle Dagdag</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Boter, Marilyn</Sys_Gen>
+      <Name>Marilyn A. Boter</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Roldan , Meleena Ros</Sys_Gen>
+      <Name>Meleena Rose Y Roldan</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Luangco, Mergieli</Sys_Gen>
+      <Name>Mergeli T Luangco</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Repizo, Myreen</Sys_Gen>
+      <Name>Myreen M Repizo</Name>
+      <Sched_In>7:00:00 AM</Sched_In>
+      <Sched_Out>4:00:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Martinez, Paolo pedr</Sys_Gen>
+      <Name>Paolo Pedro C. Martinez</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Ico , Rejeanne</Sys_Gen>
+      <Name>Reajeanne D Ico</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Arguelles , Renalyn</Sys_Gen>
+      <Name>Renalyn Arguelles</Name>
+      <Sched_In>7:15:00 AM</Sched_In>
+      <Sched_Out>4:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>ROQUE, TRIZIA ROBY-A</Sys_Gen>
+      <Name>Trizia Roby Ann C Roque</Name>
+      <Sched_In>8:15:00 AM</Sched_In>
+      <Sched_Out>5:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Go, Wrenz</Sys_Gen>
+      <Name>Wrenz Wilyam C Go</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+   <people xmlns="urn:schemas-microsoft-com:sql:SqlRowSet1">
+      <Sys_Gen>Ubanan, Zuzete</Sys_Gen>
+      <Name>Zuzete B. Ubanan</Name>
+      <Sched_In>9:15:00 AM</Sched_In>
+      <Sched_Out>6:30:00 PM</Sched_Out>
+   </people>
+</peopledata>
