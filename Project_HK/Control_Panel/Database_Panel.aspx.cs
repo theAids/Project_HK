@@ -20,9 +20,19 @@ namespace Project_HK.Control_Panel
     public partial class Db_Extract : System.Web.UI.Page
     {
         private List<ConnectionModel> connStrings = new List<ConnectionModel>();
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (!Request.IsAuthenticated)
+            {
+                Response.Redirect("~/Accounts/Login.aspx", true);
+            }
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.IsAuthenticated)
+            if (!Page.IsPostBack)
             {
                 // get cookies
                 FormsIdentity id = HttpContext.Current.User.Identity as FormsIdentity;
@@ -37,11 +47,6 @@ namespace Project_HK.Control_Panel
                 this.db_connection.DataSource = connStrings;
                 this.db_connection.DataBind();
             }
-            else
-            {
-                Response.Redirect("~/Accounts/Login.aspx", true);
-            }
-
         }
 
         protected void extractXML(object sender, CommandEventArgs e)

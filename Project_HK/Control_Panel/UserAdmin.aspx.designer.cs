@@ -7,45 +7,63 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Project_HK {
+namespace Project_HK.Control_Panel {
     
     
-    public partial class SiteMaster {
+    public partial class UserAdmin {
         
         /// <summary>
-        /// BrandImg control.
+        /// uname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image BrandImg;
+        protected global::System.Web.UI.WebControls.TextBox uname;
         
         /// <summary>
-        /// currentUser control.
+        /// fname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal currentUser;
+        protected global::System.Web.UI.WebControls.TextBox fname;
         
         /// <summary>
-        /// logout_btn control.
+        /// lname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton logout_btn;
+        protected global::System.Web.UI.WebControls.TextBox lname;
         
         /// <summary>
-        /// Master_Page control.
+        /// pword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder Master_Page;
+        protected global::System.Web.UI.WebControls.TextBox pword;
+        
+        /// <summary>
+        /// conpword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox conpword;
+        
+        /// <summary>
+        /// role control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList role;
     }
 }

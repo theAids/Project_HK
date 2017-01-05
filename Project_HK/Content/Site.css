@@ -99,18 +99,12 @@ body {
 
 
 
-/**************************************/
-
 /* navbar ey color scheme */
 .nav-ey {
     background-color: #222222 !important;
     border-color: #080808;
 }
 
-.text-center h3,
-.btn-login {
-    color: #808080;
-}
 
 /* icon spacing from text */
 .icon {
@@ -163,3 +157,14 @@ ul.navbar-right{
    background-color: #ffe600;
 }
 
+.text-center h3,
+.btn-login {
+    color: #808080;
+}
+
+/* input field css */
+
+.form-group.required .control-label:after{
+    content: "*";
+    color:red;
+}

@@ -37,7 +37,9 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user icon"></span><asp:Literal runat="server" ID="currentUser"></asp:Literal> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user icon"></span>
+                            <asp:Literal runat="server" ID="currentUser"></asp:Literal>
+                            <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="#"><span class="glyphicon glyphicon-pencil icon"></span>Settings </a>
@@ -53,19 +55,10 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav navbar-inverse nav-sidebar">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-signal icon"></span>Tableau</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <asp:ContentPlaceHolder ID="DB_Panel" runat="server"></asp:ContentPlaceHolder>
-                </div>
+                <asp:ContentPlaceHolder ID="Master_Page" runat="server"></asp:ContentPlaceHolder>
             </div>
         </div>
     </form>
 </body>
-<%: Scripts.Render("~/Scripts/jquery-ui.js") %>
 <%: Scripts.Render("~/Scripts/Site.js") %>
 </html>

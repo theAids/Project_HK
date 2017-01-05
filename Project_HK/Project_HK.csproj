@@ -142,6 +142,7 @@
     <Content Include="Content\images\EY_logo_hr.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Control_Panel\Database_Panel.aspx" />
+    <Content Include="Control_Panel\UserAdmin.aspx" />
     <Content Include="Default.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -158,6 +159,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
@@ -212,6 +214,13 @@
     </Compile>
     <Compile Include="Control_Panel\Database_Panel.aspx.designer.cs">
       <DependentUpon>Database_Panel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Panel\UserAdmin.aspx.cs">
+      <DependentUpon>UserAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Panel\UserAdmin.aspx.designer.cs">
+      <DependentUpon>UserAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

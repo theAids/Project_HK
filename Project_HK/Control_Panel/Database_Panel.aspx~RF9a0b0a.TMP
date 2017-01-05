@@ -1,19 +1,18 @@
 ﻿<%@ Page Title="Database" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Database_Panel.aspx.cs" Inherits="Project_HK.Control_Panel.Db_Extract" %>
 
-<asp:Content ID="Db_Panel_Content" ContentPlaceHolderID="Master_Page" runat="server">
-
-            <!-- Side Bar -->
+<asp:Content ID="BodyContent" ContentPlaceHolderID="Db_Panel" runat="server">
+    <div class="container-fluid">
+        <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav navbar-inverse nav-sidebar">
                     <li class="active"><a href="#"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-signal icon"></span>Tableau</a></li>
                 </ul>
             </div>
-             <!-- / Side Bar -->
-
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">Database</h1>
                 <div class="row">
+
 
                     <div class="col-sm-6 col-md-7">
                         <!-- database connection table -->
@@ -96,6 +95,6 @@
                 </div>
                 <!-- / Confirmation Modal -->
             </div>
-        
-
+        </div>
+    </div>
 </asp:Content>
