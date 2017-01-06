@@ -13,13 +13,31 @@ namespace Project_HK.Admin {
     public partial class UserAdmin {
         
         /// <summary>
-        /// addUser_status_uPanel control.
+        /// userTableUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel addUser_status_uPanel;
+        protected global::System.Web.UI.UpdatePanel userTableUpdate;
+        
+        /// <summary>
+        /// userList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater userList;
+        
+        /// <summary>
+        /// addUser_status_UPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel addUser_status_UPanel;
         
         /// <summary>
         /// userAdd_status_panel control.

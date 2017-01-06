@@ -13,11 +13,18 @@ namespace Project_HK.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                this.userList.DataSource = AccountManager.GetAllUsers();
+                this.userList.DataBind();
+
+            }
 
         }
 
         protected void Add_User(object sender, EventArgs e)
         {
+            Page.Validate();
 
             if(Page.IsValid)
             {
@@ -39,13 +46,17 @@ namespace Project_HK.Admin
                     userAdd_status_panel.CssClass = "alert alert-success user-status";
                     userAdd_status_icon.CssClass = "glyphicon glyphicon-ok-circle";
                     userAdd_status_lit.Text = "User successfully added!";
-                    
+
+                    this.userList.DataSource = AccountManager.GetAllUsers();
+                    this.userList.DataBind();
+                    userTableUpdate.Update();
+
                 }
                 else
                 {
                     userAdd_status_panel.CssClass = "alert alert-danger user-status";
                     userAdd_status_icon.CssClass = "glyphicon glyphicon-remove-circle";
-                    userAdd_status_lit.Text = "User successfully added!";
+                    userAdd_status_lit.Text = "Adding user failed!";
                 }
 
                 userAdd_status_panel.Visible = true;
@@ -61,9 +72,19 @@ namespace Project_HK.Admin
                 e.IsValid = false;
         }
 
+        protected void Remove_User(object sender, CommandEventArgs e)
+        {
+            AccountManager.RemoveUser(Convert.ToInt64(e.CommandArgument));
+            this.userList.DataSource = AccountManager.GetAllUsers();
+            this.userList.DataBind();
+            userTableUpdate.Update();
+        }
+
+        /*
         protected void uname_TextChanged(object sender, EventArgs e)
         {
             unameVal.Validate();
         }
+        */
     }
 }

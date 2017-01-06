@@ -8,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title><%: Page.Title %> - Project HK</title>
-
+    <link rel="stylesheet" href="Content/dataTables.bootstrap.min.css" />
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
        
     </asp:PlaceHolder>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
+
+
 
 </head>
 <body>
@@ -61,4 +63,8 @@
     </form>
 </body>
 <%: Scripts.Render("~/Scripts/Site.js") %>
+<%: Scripts.Render("~/Scripts/jquery-1.12.4.js") %>
+<%: Scripts.Render("~/Scripts/jquery.dataTables.min.js") %>
+<%: Scripts.Render("~/Scripts/dataTables.bootstrap.min.js") %>
+
 </html>

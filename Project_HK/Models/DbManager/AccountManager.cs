@@ -15,9 +15,9 @@ namespace Project_HK.Models.DbManager
     {
         public static void CreateAccountsTable()
         {
-            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
             {
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     conn.Open();
                     string cmdstr = @"IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'users')
@@ -46,9 +46,9 @@ namespace Project_HK.Models.DbManager
 
         public static string GetUsername(string username)
         {
-            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
             {
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     conn.Open();
 
@@ -64,7 +64,7 @@ namespace Project_HK.Models.DbManager
                     {
                         return cmd.ExecuteScalar().ToString();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.WriteLine("SQL ERROR: " + e.ToString());
                         return null;
@@ -75,7 +75,7 @@ namespace Project_HK.Models.DbManager
 
         public static long GetLastID(int roleID)
         {
-            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
@@ -94,7 +94,7 @@ namespace Project_HK.Models.DbManager
                         long id = Convert.ToInt64(result ?? default(long)); //default of long is 0L if null
                         return id;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.WriteLine("DB QUERY ERROR: " + e.Message);
                         return 0;
@@ -105,9 +105,9 @@ namespace Project_HK.Models.DbManager
 
         public static Boolean AddUser(long userID, string username, string firstname, string lastname, string password)
         {
-            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
             {
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     conn.Open();
 
@@ -137,12 +137,42 @@ namespace Project_HK.Models.DbManager
                         cmd.ExecuteNonQuery();
                         return true;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
                         return false;
                     }
 
+                }
+            }
+        }
+
+        public static Boolean RemoveUser(long userID)
+        {
+            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            {
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+
+                    string cmdstr = "DELETE FROM users WHERE userID=@userID";
+                    cmd.CommandText = cmdstr;
+
+                    cmd.Parameters.Add(new SqlParameter("@userID", SqlDbType.BigInt));
+                    cmd.Prepare();
+
+                    cmd.Parameters["@userID"].Value = userID;
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.WriteLine("SQL ERROR: " + e.ToString());
+                        return false;
+                    }
                 }
             }
         }
@@ -153,7 +183,7 @@ namespace Project_HK.Models.DbManager
             {
                 conn.Open();
                 string salt = "";
-                
+
                 // get the corresponding salt for the user
                 using (SqlCommand cmdPass = conn.CreateCommand())
                 {
@@ -178,7 +208,7 @@ namespace Project_HK.Models.DbManager
                 // get username, lastname and firstname (if exists) for the cookies
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    string cmdstr = "SELECT username, lastname, firstname FROM users WHERE username=@username and password=@password";
+                    string cmdstr = "SELECT userID, username, lastname, firstname FROM users WHERE username=@username and password=@password";
                     cmd.CommandText = cmdstr;
                     cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
                     cmd.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 50));
@@ -197,9 +227,10 @@ namespace Project_HK.Models.DbManager
                         {
                             while (reader.Read())
                             {
-                                user.username = reader[0].ToString();
-                                user.lastname = reader[1].ToString();
-                                user.firstname = reader[2].ToString();
+                                user.userID = Convert.ToInt64(reader[0]);
+                                user.username = reader[1].ToString();
+                                user.lastname = reader[2].ToString();
+                                user.firstname = reader[3].ToString();
 
                                 return user;
                             }
@@ -209,7 +240,7 @@ namespace Project_HK.Models.DbManager
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("DB QUERY ERROR: " + e.Message);
+                        Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
                     }
 
                 }
@@ -218,6 +249,47 @@ namespace Project_HK.Models.DbManager
             return null;
         }
 
+        public static List<UserAccountModel> GetAllUsers()
+        {
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            {
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    string cmdstr = "SELECT userID, username, lastname, firstname FROM users ORDER BY userID ASC";
+                    cmd.CommandText = cmdstr;
+                    cmd.Prepare();
+
+                    List<UserAccountModel> accounts = new List<UserAccountModel>();
+
+                    try
+                    {
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            UserAccountModel user = new UserAccountModel();
+
+                            user.userID = Convert.ToInt64(reader[0]);
+                            user.username = reader[1].ToString();
+                            user.lastname = reader[2].ToString();
+                            user.firstname = reader[3].ToString();
+
+                            accounts.Add(user);
+                            
+                        }
+                        return accounts;
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
+                        return null;
+                    }
+
+                }
+            }
+        }
 
         /*************** Password Functions *****************************/
         public static string HashPassword(string pword, string salt)
@@ -233,7 +305,7 @@ namespace Project_HK.Models.DbManager
             // convert to bytes to hex
             for (int i = 0; i < hashPword.Length; i++)
             {
-                strbuilder.Append(hashPword[i].ToString("x2")); 
+                strbuilder.Append(hashPword[i].ToString("x2"));
             }
 
             return strbuilder.ToString();
