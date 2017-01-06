@@ -47,8 +47,9 @@
                                         <td><%# Eval("firstname") %></td>
                                         <td><%# Eval("lastname") %></td>
                                         <td><%# Convert.ToInt64(Eval("userID")) / 1000 == 1 ? "Administrator" : "User" %></td>
-                                        <td><a href="#"><span class="glyphicon glyphicon-pencil"></a></td>
-                                        <td><asp:LinkButton runat="server" OnCommand="Remove_User" OnClientClick="return UserDeleteConfirmation()" CommandArgument='<%# Eval("userID")%>'><span class="glyphicon glyphicon-trash alert-danger"></asp:LinkButton></td>
+                                        <td><a data-toggle="modal" data-target="#editUserModal" href="#"><span class="glyphicon glyphicon-pencil"></a></td>
+                                        <td>
+                                            <asp:LinkButton runat="server" OnCommand="Remove_User" OnClientClick="return UserDeleteConfirmation()" CommandArgument='<%# Eval("userID")%>'><span class="glyphicon glyphicon-trash alert-danger"></asp:LinkButton></td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -64,6 +65,8 @@
             </div>
         </div>
     </div>
+
+
     <!-- Add User Modal --->
     <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -85,7 +88,7 @@
                         </asp:Panel>
                         <div class="modal-body form-horizontal">
                             <!-- username field -->
-                            <asp:RequiredFieldValidator runat="server" ValidationGroup="userValidation" ControlToValidate="uname" ErrorMessage="This field is required." ForeColor="Red" Font-Italic="true" Display="Dynamic" CssClass="col-sm-offset-3"/>
+                            <asp:RequiredFieldValidator runat="server" ValidationGroup="userValidation" ControlToValidate="uname" ErrorMessage="This field is required." ForeColor="Red" Font-Italic="true" Display="Dynamic" CssClass="col-sm-offset-3" />
                             <asp:CustomValidator runat="server" ID="unameVal" ValidationGroup="uservalidation" ControlToValidate="uname" ErrorMessage="Username already exists." ForeColor="Red" Font-Italic="true" Display="Dynamic" CssClass="col-sm-offset-3" OnServerValidate="User_Exists" />
                             <div class="form-group required">
                                 <label class="control-label col-sm-3" for="uname">Username</label>
@@ -158,6 +161,92 @@
         </div>
     </div>
     <!-- / Add User Modal -->
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit User Info</h4>
+                </div>
+
+                <asp:UpdatePanel runat="server" ID="editUser_status_UPanel">
+                    <ContentTemplate>
+                        <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="editUser_status_UPanel" DynamicLayout="true">
+                            <ProgressTemplate>
+                                <div class="alert alert-info user-status">Editting user info...</div>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                        <asp:Panel runat="server" ID="Panel1" Visible="false">
+                            <asp:Label runat="server" ID="Label1"></asp:Label>
+                            <asp:Literal runat="server" ID="Literal1" />
+                        </asp:Panel>
+                        <div class="modal-body form-horizontal">
+                            <!-- fname field -->
+                            <asp:RequiredFieldValidator runat="server" ValidationGroup="userValidation_edit" ControlToValidate="fname_edit" ErrorMessage="This field is required." ForeColor="Red" Font-Italic="true" Display="Dynamic" CssClass="col-sm-offset-3" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="fname_edit">Firstname</label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="fname_edit" placeholder="Enter firstname" EnableViewState="false"></asp:TextBox>
+                                </div>
+                            </div>
+                            <!-- / fname field -->
+                            <!-- lname field -->
+                            <asp:RequiredFieldValidator runat="server" ValidationGroup="userValidation_edit" ControlToValidate="lname_edit" ErrorMessage="This field is required." ForeColor="Red" Font-Italic="true" Display="Dynamic" CssClass="col-sm-offset-3" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="lname_edit">Lastname</label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="lname_edit" placeholder="Enter lastname" EnableViewState="false"></asp:TextBox>
+                                </div>
+                            </div>
+                            <!-- / lname field -->
+                            <!-- role select field -->
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="role">Role</label>
+                                <div class="col-sm-9">
+                                    <asp:DropDownList runat="server" C ID="roleList_edit" AutoPostBack="false" CssClass="form-control" EnableViewState="false">
+                                        <asp:ListItem Value="2"> User </asp:ListItem>
+                                        <asp:ListItem Value="1"> Administrator </asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <!-- / role select field -->
+                            <!-- Change password panel -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Change Password</div>
+                                <div class="panel-body">
+                                    <!-- new password field -->
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="pword1_edit">New Password</label>
+                                        <div class="col-sm-9">
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="pword1_edit" TextMode="Password" placeholder="Enter password" EnableViewState="false"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <!-- / new password field -->
+                                    <!-- confirm password field -->
+                                    <asp:CompareValidator runat="server" ValidationGroup="userValidation_edit" ControlToValidate="pword2_edit" ControlToCompare="pword1_edit" ErrorMessage="Entered password does not match." ForeColor="Red" Font-Italic="true" CssClass="col-sm-offset-3" />
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="pword2_edit">Confirm Password</label>
+                                        <div class="col-sm-9">
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="pword2_edit" TextMode="Password" placeholder="Re-enter password" EnableViewState="false"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <!-- confirm password field -->
+                                </div>
+                            </div>
+                            <!-- / Change password panel -->
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">Close</button>
+                    <asp:Button runat="server" class="btn btn-primary btn-proceed" ID="editUser_btn" OnCommand="Edit_User" CommandArgument="asdf" Text="Update Info" ValidationGroup="userValidation_edit" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit User Modal -->
     <script type="text/javascript">
 
         //bind table at startup
@@ -187,14 +276,13 @@
 
         // clear all fields for new user modal
         $('.addBtn').click(function () {
-            
+
             //clear client-side validator
             for (i = 0; i < Page_Validators.length; i++) {
                 if (Page_Validators[i].validationGroup == "userValidation") {
                     ValidatorEnable(Page_Validators[i], false);
                 }
             }
-
             // clear server-side validator
             $('#<%= unameVal.ClientID%>').hide();
 

@@ -80,6 +80,11 @@ namespace Project_HK.Admin
             userTableUpdate.Update();
         }
 
+        protected void Edit_User(object sender, CommandEventArgs e)
+        {
+
+        }
+
         /*
         protected void uname_TextChanged(object sender, EventArgs e)
         {
