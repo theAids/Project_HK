@@ -142,7 +142,7 @@
     <Content Include="Content\images\EY_logo_hr.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Control_Panel\Database_Panel.aspx" />
-    <Content Include="Control_Panel\UserAdmin.aspx" />
+    <Content Include="Admin\UserAdmin.aspx" />
     <Content Include="Default.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -215,11 +215,11 @@
     <Compile Include="Control_Panel\Database_Panel.aspx.designer.cs">
       <DependentUpon>Database_Panel.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Control_Panel\UserAdmin.aspx.cs">
+    <Compile Include="Admin\UserAdmin.aspx.cs">
       <DependentUpon>UserAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Control_Panel\UserAdmin.aspx.designer.cs">
+    <Compile Include="Admin\UserAdmin.aspx.designer.cs">
       <DependentUpon>UserAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

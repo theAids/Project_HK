@@ -168,3 +168,16 @@ ul.navbar-right{
     content: "*";
     color:red;
 }
+
+/*
+ * UserAdd Panel Css
+ */
+
+.user-status{
+    font-size: 16px;
+    text-align: center;
+}
+
+.user-status span{
+    font-size: 20px;
+}

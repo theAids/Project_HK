@@ -51,8 +51,8 @@
                     </div>
                     <!-- / database connection table -->
 
+                    <!-- Action Log -->
                     <div class="col-sm-6 col-md-5">
-                        <!-- Action Log -->
                         <div class="panel panel-info  log-panel">
                             <div class="panel-heading">
                                 <span class="glyphicon glyphicon-log-in icon"></span>Export Log

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_HK.Models.DbManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,8 @@ namespace Project_HK
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AccountManager.CreateAccountsTable();
         }
     }
 }
