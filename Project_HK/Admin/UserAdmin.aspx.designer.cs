@@ -148,31 +148,49 @@ namespace Project_HK.Admin {
         protected global::System.Web.UI.UpdatePanel editUser_status_UPanel;
         
         /// <summary>
-        /// Panel1 control.
+        /// userEdit_status_panel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Panel userEdit_status_panel;
         
         /// <summary>
-        /// Label1 control.
+        /// userEdit_status_icon control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label userEdit_status_icon;
         
         /// <summary>
-        /// Literal1 control.
+        /// userEdit_status_lit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal1;
+        protected global::System.Web.UI.WebControls.Literal userEdit_status_lit;
+        
+        /// <summary>
+        /// username_label control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label username_label;
+        
+        /// <summary>
+        /// hidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidden;
         
         /// <summary>
         /// fname_edit control.

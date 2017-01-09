@@ -5,8 +5,9 @@
     <!-- Side Bar -->
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav navbar-inverse nav-sidebar">
-            <li class="active"><a href="#"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="Database_Panel.aspx"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-signal icon"></span>Tableau</a></li>
+            <asp:PlaceHolder runat="server" ID="adminMenu" /> 
         </ul>
     </div>
     <!-- / Side Bar -->

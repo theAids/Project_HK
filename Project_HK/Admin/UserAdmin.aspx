@@ -5,9 +5,9 @@
     <!-- Side Bar -->
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav navbar-inverse nav-sidebar">
-            <li><a href="#"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
+            <li><a href="../Control_Panel/Database_Panel.aspx"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-signal icon"></span>Tableau</a></li>
-            <li class="active"><a href="#"><span class="glyphicon glyphicon-user icon"></span>User Admin</a></li>
+            <li class="active"><a href="UserAdmin.aspx"><span class="glyphicon glyphicon-user icon"></span>User Admin</a></li>
         </ul>
     </div>
     <!-- / Side Bar -->
@@ -43,13 +43,12 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td><%# Eval("username") %></td>
-                                        <td><%# Eval("firstname") %></td>
-                                        <td><%# Eval("lastname") %></td>
-                                        <td><%# Convert.ToInt64(Eval("userID")) / 1000 == 1 ? "Administrator" : "User" %></td>
-                                        <td><a data-toggle="modal" data-target="#editUserModal" href="#"><span class="glyphicon glyphicon-pencil"></a></td>
-                                        <td>
-                                            <asp:LinkButton runat="server" OnCommand="Remove_User" OnClientClick="return UserDeleteConfirmation()" CommandArgument='<%# Eval("userID")%>'><span class="glyphicon glyphicon-trash alert-danger"></asp:LinkButton></td>
+                                        <td class="username"><%# Eval("username") %></td>
+                                        <td class="fname"><%# Eval("firstname") %></td>
+                                        <td class="lname"><%# Eval("lastname") %></td>
+                                        <td class="role"><%# Eval("role")%></td>
+                                        <td><a data-toggle="modal" data-target="#editUserModal" class="editUser_btn" href="#"><span class="glyphicon glyphicon-pencil"></a></td>
+                                        <td><asp:LinkButton runat="server" OnCommand="Remove_User" OnClientClick="return UserDeleteConfirmation()" CommandArgument='<%# Eval("userID")%>'><span class="glyphicon glyphicon-trash alert-danger"></asp:LinkButton></td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -177,11 +176,19 @@
                                 <div class="alert alert-info user-status">Editting user info...</div>
                             </ProgressTemplate>
                         </asp:UpdateProgress>
-                        <asp:Panel runat="server" ID="Panel1" Visible="false">
-                            <asp:Label runat="server" ID="Label1"></asp:Label>
-                            <asp:Literal runat="server" ID="Literal1" />
+                        <asp:Panel runat="server" ID="userEdit_status_panel" Visible="false">
+                            <asp:Label runat="server" ID="userEdit_status_icon"></asp:Label>
+                            <asp:Literal runat="server" ID="userEdit_status_lit" />
                         </asp:Panel>
                         <div class="modal-body form-horizontal">
+                            <!-- username label -->
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="fname_edit">Username</label>
+                                <label class="col-sm-9 username_edit">
+                                    <asp:Label runat="server" ID="username_label"></asp:Label></label>
+                                <asp:HiddenField ID="hidden" runat="server" />
+                            </div>
+                            <!-- / usermame label -->
                             <!-- fname field -->
                             <asp:RequiredFieldValidator runat="server" ValidationGroup="userValidation_edit" ControlToValidate="fname_edit" ErrorMessage="This field is required." ForeColor="Red" Font-Italic="true" Display="Dynamic" CssClass="col-sm-offset-3" />
                             <div class="form-group">
@@ -237,11 +244,14 @@
                             <!-- / Change password panel -->
                         </div>
                     </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="editUser_btn" />
+                    </Triggers>
                 </asp:UpdatePanel>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">Close</button>
-                    <asp:Button runat="server" class="btn btn-primary btn-proceed" ID="editUser_btn" OnCommand="Edit_User" CommandArgument="asdf" Text="Update Info" ValidationGroup="userValidation_edit" />
+                    <asp:Button runat="server" class="btn btn-primary btn-proceed" ID="editUser_btn" OnCommand="Edit_User" Text="Update Info" ValidationGroup="userValidation_edit" />
                 </div>
             </div>
         </div>
@@ -249,51 +259,80 @@
     <!-- Edit User Modal -->
     <script type="text/javascript">
 
-        //bind table at startup
-        $(document).ready(function () {
-            table = $('#usersTable').dataTable({
-                'columnDefs': [{
-                    'targets': 'no-sort',
-                    'width': '20px',
-                    'orderable': false
-                }],
-                'retrieve': true
+        function pageLoad() {
+            //bind table at startup
+            $(document).ready(function () {
+                table = $('#usersTable').dataTable({
+                    'columnDefs': [{
+                        'targets': 'no-sort',
+                        'width': '20px',
+                        'orderable': false
+                    }],
+                    'retrieve': true
+                });
             });
-        });
 
-        //Re-bind datable for asyncpost
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-        prm.add_endRequest(function () {
-            table = $('#usersTable').dataTable({
-                'columnDefs': [{
-                    'targets': 'no-sort',
-                    'width': '20px',
-                    'orderable': false
-                }],
-                'retrieve': true
-            });
-        });
+            /*Re-bind datable for asyncpost
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_endRequest(function () {
+                table = $('#usersTable').dataTable({
+                    'columnDefs': [{
+                        'targets': 'no-sort',
+                        'width': '20px',
+                        'orderable': false
+                    }],
+                    'retrieve': true
+                });
+            });*/
 
-        // clear all fields for new user modal
-        $('.addBtn').click(function () {
+            // clear all fields for new user modal
+            $('.addBtn').click(function () {
 
-            //clear client-side validator
-            for (i = 0; i < Page_Validators.length; i++) {
-                if (Page_Validators[i].validationGroup == "userValidation") {
-                    ValidatorEnable(Page_Validators[i], false);
+                //clear client-side validator
+                for (i = 0; i < Page_Validators.length; i++) {
+                    if (Page_Validators[i].validationGroup == "userValidation")
+                        ValidatorEnable(Page_Validators[i], false);
                 }
-            }
-            // clear server-side validator
-            $('#<%= unameVal.ClientID%>').hide();
 
-            // hide add user status
-            $('#<%= userAdd_status_panel.ClientID%>').hide();
+                // clear server-side validator
+                $('#<%= unameVal.ClientID%>').hide();
 
-            $('#newUserModal input:text').each(function () {
-                $(this).val('');
+                // hide add user status
+                $('#<%= userAdd_status_panel.ClientID%>').hide();
+
+                $('#newUserModal input:text').each(function () {
+                    $(this).val('');
+                });
             });
-        });
 
+            // Edit function script
+            $('.editUser_btn').click(function () {
+
+                //clear validators
+                for (i = 0; i < Page_Validators.length; i++) {
+                    if (Page_Validators[i].validationGroup == "userValidation") {
+                        ValidatorEnable(Page_Validators[i], false);
+                    }
+                }
+
+                // hide edit user status
+                $('#<%= userEdit_status_panel.ClientID%>').hide();
+
+                $('#<%= username_label.ClientID%>').text(($(this).parent().siblings('.username').text()));
+                $('#<%= hidden.ClientID%>').val($(this).parent().siblings('.username').text());
+                $('#<%= fname_edit.ClientID%>').val($(this).parent().siblings('.fname').text());
+                $('#<%= lname_edit.ClientID%>').val($(this).parent().siblings('.lname').text());
+
+                var role;
+                switch ($(this).parent().siblings('.role').text()) {
+                    case 'Administrator': role = 1; break;
+                    case 'User': role = 2; break;
+                }
+
+                $('#<%= roleList_edit.ClientID%>').val(role).change();
+
+            });
+        }
         function UserDeleteConfirmation() {
             return confirm("Are you sure you want to delete this user?");
         }

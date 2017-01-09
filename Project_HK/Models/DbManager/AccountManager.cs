@@ -22,13 +22,14 @@ namespace Project_HK.Models.DbManager
                     conn.Open();
                     string cmdstr = @"IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'users')
                                         CREATE TABLE[dbo].[users] (
-                                            [userID] [bigint] NOT NULL PRIMARY KEY,
+                                            [userID] [bigint] NOT NULL IDENTITY(1,1) PRIMARY KEY,
                                             [username] [varchar](20) NOT NULL UNIQUE,
                                             [password] [varchar](40) NOT NULL,
                                             [salt] [varchar](40) NOT NULL,
                                             [firstname] [varchar](20) NOT NULL,
                                             [lastname] [varchar](20) NOT NULL,
-                                            [version] rowversion)";
+                                            [role] [varchar] (20) NOT NULL,
+                                            [version] rowversion);";
                     cmd.CommandText = cmdstr;
                     cmd.Prepare();
 
@@ -38,10 +39,13 @@ namespace Project_HK.Models.DbManager
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("SQL ERROR: " + e.Message);
+                        Debug.WriteLine("CREATE INITIAL TABLE ERROR: " + e.ToString());
                     }
                 }
             }
+
+            //Default admin account
+            AddUser("admin", "admin", "user", "admin123", "Administrator");
         }
 
         public static string GetUsername(string username)
@@ -66,9 +70,38 @@ namespace Project_HK.Models.DbManager
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("SQL ERROR: " + e.ToString());
+                        Debug.WriteLine("GET USERNAME ERROR: " + e.ToString());
                         return null;
                     }
+                }
+            }
+        }
+        /*
+        public static long GetUserID(string username)
+        {
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            {
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+
+                    string cmdstr = "SELECT userID FROM users WHERE username=@username";
+                    cmd.CommandText = cmdstr;
+                    cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
+                    cmd.Prepare();
+
+                    cmd.Parameters["@username"].Value = username;
+                    try
+                    {
+                        return Convert.ToInt64(cmd.ExecuteScalar());
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("GET USERID ERROR: " + e.ToString());
+                        return 0;
+                    }
+
+
                 }
             }
         }
@@ -96,14 +129,14 @@ namespace Project_HK.Models.DbManager
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("DB QUERY ERROR: " + e.Message);
+                        Debug.WriteLine("GET LAST ID ERROR: " + e.Message);
                         return 0;
                     }
                 }
             }
         }
-
-        public static Boolean AddUser(long userID, string username, string firstname, string lastname, string password)
+        */
+        public static Boolean AddUser(string username, string firstname, string lastname, string password, string role)
         {
             using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
             {
@@ -111,21 +144,21 @@ namespace Project_HK.Models.DbManager
                 {
                     conn.Open();
 
-                    string cmdstr = "INSERT INTO users(userID, username, password, salt, firstname, lastname) VALUES(@userID, @username, @password, @salt, @firstname, @lastname)";
+                    string cmdstr = "INSERT INTO users VALUES(@username, @password, @salt, @firstname, @lastname, @role, DEFAULT)";
                     cmd.CommandText = cmdstr;
-
-                    cmd.Parameters.Add(new SqlParameter("@userID", SqlDbType.BigInt));
+                    
                     cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
                     cmd.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 40));
                     cmd.Parameters.Add(new SqlParameter("@salt", SqlDbType.VarChar, 40));
                     cmd.Parameters.Add(new SqlParameter("@firstname", SqlDbType.VarChar, 20));
                     cmd.Parameters.Add(new SqlParameter("@lastname", SqlDbType.VarChar, 20));
+                    cmd.Parameters.Add(new SqlParameter("@role", SqlDbType.VarChar, 20));
 
                     cmd.Prepare();
-                    cmd.Parameters["@userID"].Value = userID;
                     cmd.Parameters["@username"].Value = username;
                     cmd.Parameters["@firstname"].Value = firstname;
                     cmd.Parameters["@lastname"].Value = lastname;
+                    cmd.Parameters["@role"].Value = role;
 
                     string salt = GetSalt();
                     string hashPassword = HashPassword(password, salt);
@@ -139,10 +172,85 @@ namespace Project_HK.Models.DbManager
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
+                        Debug.WriteLine("ADD USER ERROR: " + e.ToString());
                         return false;
                     }
 
+                }
+            }
+        }
+
+        public static Boolean EditUser(String username, string firstname, string lastname, string password, string role)
+        {
+            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            {
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+
+                    if (password != null)
+                    {
+                        string cmdstr = "UPDATE users set firstname=@firstname, lastname=@lastname, role=@role, password=@password, salt=@salt WHERE username=@username";
+                        cmd.CommandText = cmdstr;
+
+                        cmd.Parameters.Add(new SqlParameter("@firstname", SqlDbType.VarChar, 20));
+                        cmd.Parameters.Add(new SqlParameter("@lastname", SqlDbType.VarChar, 20));
+                        cmd.Parameters.Add(new SqlParameter("@role", SqlDbType.VarChar, 20));
+                        cmd.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 40));
+                        cmd.Parameters.Add(new SqlParameter("@salt", SqlDbType.VarChar, 40));
+                        cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
+                        cmd.Prepare();
+
+                        cmd.Parameters["@firstname"].Value = firstname;
+                        cmd.Parameters["@lastname"].Value = lastname;
+                        cmd.Parameters["@role"].Value = role;
+                        cmd.Parameters["@username"].Value = username;
+
+                        string salt = GetSalt();
+                        string hashPassword = HashPassword(password, salt);
+                        cmd.Parameters["@salt"].Value = salt;
+                        cmd.Parameters["@password"].Value = hashPassword;
+
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                            return true;
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
+                            return false;
+                        }
+
+
+                    }
+                    else
+                    {
+                        string cmdstr = "UPDATE users set firstname=@firstname, lastname=@lastname, role=@role WHERE username=@username";
+                        cmd.CommandText = cmdstr;
+
+                        cmd.Parameters.Add(new SqlParameter("@firstname", SqlDbType.VarChar, 20));
+                        cmd.Parameters.Add(new SqlParameter("@lastname", SqlDbType.VarChar, 20));
+                        cmd.Parameters.Add(new SqlParameter("@role", SqlDbType.VarChar, 20));
+                        cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
+                        cmd.Prepare();
+
+                        cmd.Parameters["@firstname"].Value = firstname;
+                        cmd.Parameters["@lastname"].Value = lastname;
+                        cmd.Parameters["@role"].Value = role;
+                        cmd.Parameters["@username"].Value = username;
+
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                            return true;
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
+                            return false;
+                        }
+                    }
                 }
             }
         }
@@ -205,10 +313,10 @@ namespace Project_HK.Models.DbManager
 
                 }
 
-                // get username, lastname and firstname (if exists) for the cookies
+                // get username, lastname firstname and role for the cookies
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    string cmdstr = "SELECT userID, username, lastname, firstname FROM users WHERE username=@username and password=@password";
+                    string cmdstr = "SELECT userID, username, lastname, firstname, role FROM users WHERE username=@username and password=@password";
                     cmd.CommandText = cmdstr;
                     cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
                     cmd.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 50));
@@ -231,6 +339,7 @@ namespace Project_HK.Models.DbManager
                                 user.username = reader[1].ToString();
                                 user.lastname = reader[2].ToString();
                                 user.firstname = reader[3].ToString();
+                                user.role = reader[4].ToString();
 
                                 return user;
                             }
@@ -240,7 +349,7 @@ namespace Project_HK.Models.DbManager
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("DB QUERY ERROR: " + e.ToString());
+                        Debug.WriteLine("VALIDATE USER ERROR: " + e.ToString());
                     }
 
                 }
@@ -256,7 +365,7 @@ namespace Project_HK.Models.DbManager
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     conn.Open();
-                    string cmdstr = "SELECT userID, username, lastname, firstname FROM users ORDER BY userID ASC";
+                    string cmdstr = "SELECT userID, username, lastname, firstname, role FROM users ORDER BY userID ASC";
                     cmd.CommandText = cmdstr;
                     cmd.Prepare();
 
@@ -274,6 +383,7 @@ namespace Project_HK.Models.DbManager
                             user.username = reader[1].ToString();
                             user.lastname = reader[2].ToString();
                             user.firstname = reader[3].ToString();
+                            user.role = reader[4].ToString();
 
                             accounts.Add(user);
                             

@@ -13,6 +13,15 @@ namespace Project_HK.Control_Panel {
     public partial class Db_Extract {
         
         /// <summary>
+        /// adminMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder adminMenu;
+        
+        /// <summary>
         /// db_connection control.
         /// </summary>
         /// <remarks>

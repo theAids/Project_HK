@@ -40,7 +40,11 @@ namespace Project_HK.Control_Panel
 
                 // access logged in name Literal in Master page
                 Literal currentUser = this.Master.FindControl("currentUser") as Literal;
-                currentUser.Text = ticket.UserData;
+                currentUser.Text = ticket.UserData.Split('|')[0];
+
+                //check if admin
+                if (ticket.UserData.Split('|')[1].Equals("Administrator"))
+                    adminMenu.Controls.Add(new LiteralControl("<li><a href='../Admin/UserAdmin.aspx'><span class='glyphicon glyphicon-user icon'></span>User Admin</a></li>"));
 
                 // populate db panel
                 connStrings = DbConnManager.GetConnectionStrings();
@@ -77,9 +81,9 @@ namespace Project_HK.Control_Panel
             }
 
             //export xml into external file
-            File.AppendAllText(xmlpath, xmldoc.OuterXml);
+            //File.AppendAllText(xmlpath, xmldoc.OuterXml);
 
-            LogAction(conn);
+            LogAction(conn, xmldoc.OuterXml);
         }
 
         protected void ClearLog(object sender, EventArgs e)
@@ -87,7 +91,7 @@ namespace Project_HK.Control_Panel
             logPanel.Text = "";
         }
 
-        protected void LogAction(ConnectionModel conn)
+        protected void LogAction(ConnectionModel conn, string xml)
         {
             DateTime datetime = DateTime.UtcNow;
 
@@ -97,13 +101,14 @@ namespace Project_HK.Control_Panel
             
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(string.Format("[{0} {1}]\nUser: {2}\nDatabase: {3}\nServer: {4}\n", datetime.ToString("yyyy-mm-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
+            sb.Append(string.Format("[{0} {1}]\nUser: {2}\nDatabase: {3}\nServer: {4}\nExtracted XML:\n{5}\n", datetime.ToString("yyyy-mm-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
                                                     , TimeZoneInfo.Local.ToString().Substring(1, 9)
                                                     , "John Smith"
                                                     , conn.dbname
-                                                    , conn.servername));
+                                                    , conn.servername
+                                                    , xml));
 
-            logPanel.Text += System.Security.SecurityElement.Escape(sb.ToString()).Replace("\n", "<br>");
+            logPanel.Text = System.Security.SecurityElement.Escape(sb.ToString()).Replace("\n", "<br>") + logPanel.Text;
 
             // export log into external file. log file is created for each day.
             File.AppendAllText(path, sb.ToString().Replace("\n", Environment.NewLine));

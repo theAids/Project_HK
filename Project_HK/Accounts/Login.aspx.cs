@@ -38,12 +38,17 @@ namespace Project_HK.Accounts
                                                                                    , ticket.IssueDate
                                                                                    , ticket.Expiration
                                                                                    , ticket.IsPersistent
-                                                                                   , string.Format("{0} {1}", user.firstname, user.lastname));
+                                                                                   , string.Format("{0} {1}|{2}", user.firstname, user.lastname, user.role));
                 authCookie.Value = FormsAuthentication.Encrypt(newTicket);
 
                 Response.Cookies.Add(authCookie);
 
-                Response.Redirect(FormsAuthentication.GetRedirectUrl(user.username, false), true);
+                if(user.role.Equals("Administrator"))
+                    Response.Redirect("~/Admin/UserAdmin.aspx", true);
+                else
+                    Response.Redirect("~/Control_Panel/Database_Panel.aspx", true);
+
+
             }
             else
                 loginErr_msg.Visible = true;

@@ -137,8 +137,8 @@ ul.navbar-right{
 }
 
 .log-panel {
-    min-height: 300px;
-    height: 300px;
+    min-height: 500px;
+    height: 500px;
     overflow-y: auto;
 }
 
@@ -180,4 +180,9 @@ ul.navbar-right{
 
 .user-status span{
     font-size: 20px;
+}
+
+.username_edit{
+    margin-bottom: 0px;
+    padding-top: 7px;
 }
