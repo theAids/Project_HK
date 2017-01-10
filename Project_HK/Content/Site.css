@@ -186,3 +186,7 @@ ul.navbar-right{
     margin-bottom: 0px;
     padding-top: 7px;
 }
+
+.alert-danger.disabled{
+    color: #2d2d30;
+}

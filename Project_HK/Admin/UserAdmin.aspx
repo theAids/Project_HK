@@ -1,6 +1,7 @@
-﻿<%@ Page Title="User Admin" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="UserAdmin.aspx.cs" Inherits="Project_HK.Admin.UserAdmin" %>
+﻿<%@ Page Title="User Admin" Language="C#" AutoEventWireup="True" MasterPageFile="~/Site.Master" CodeBehind="UserAdmin.aspx.cs" Inherits="Project_HK.Admin.UserAdmin" %>
 
 <asp:Content runat="server" ID="User_Admin_Content" ContentPlaceHolderID="Master_Page">
+    <asp:HiddenField runat="server" ID="current_user" Visible="false"/> 
 
     <!-- Side Bar -->
     <div class="col-sm-3 col-md-2 sidebar">
@@ -48,7 +49,7 @@
                                         <td class="lname"><%# Eval("lastname") %></td>
                                         <td class="role"><%# Eval("role")%></td>
                                         <td><a data-toggle="modal" data-target="#editUserModal" class="editUser_btn" href="#"><span class="glyphicon glyphicon-pencil"></a></td>
-                                        <td><asp:LinkButton runat="server" OnCommand="Remove_User" OnClientClick="return UserDeleteConfirmation()" CommandArgument='<%# Eval("userID")%>'><span class="glyphicon glyphicon-trash alert-danger"></asp:LinkButton></td>
+                                        <td><asp:LinkButton runat="server" OnCommand="Remove_User" CommandArgument='<%# Eval("userID")%>'><span class='glyphicon glyphicon-trash alert-danger delBtn <%# Eval("username").Equals(current_user.Value)? "disabled":"" %>'></asp:LinkButton></td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -332,9 +333,17 @@
                 $('#<%= roleList_edit.ClientID%>').val(role).change();
 
             });
+
+            $('.delBtn').click(function () {
+                if ($(this).hasClass("disabled"))
+                    return false;
+                else
+                    return confirm("Are you sure you want to delete this user?");
+            });
         }
+        /*
         function UserDeleteConfirmation() {
-            return confirm("Are you sure you want to delete this user?");
-        }
+            
+        }*/
     </script>
 </asp:Content>

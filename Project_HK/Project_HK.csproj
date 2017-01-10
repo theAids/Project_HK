@@ -210,6 +210,9 @@
     <Compile Include="Accounts\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\UserAdmin.aspx.designer.cs">
+      <DependentUpon>UserAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Control_Panel\Database_Panel.aspx.cs">
@@ -222,9 +225,6 @@
     <Compile Include="Admin\UserAdmin.aspx.cs">
       <DependentUpon>UserAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\UserAdmin.aspx.designer.cs">
-      <DependentUpon>UserAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

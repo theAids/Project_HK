@@ -32,6 +32,7 @@ namespace Project_HK.Admin
                 // access logged in name Literal in Master page
                 Literal currentUser = this.Master.FindControl("currentUser") as Literal;
                 currentUser.Text = ticket.UserData.Split('|')[0];
+                current_user.Value = ticket.Name;
 
                 this.userList.DataSource = AccountManager.GetAllUsers();
                 this.userList.DataBind();
