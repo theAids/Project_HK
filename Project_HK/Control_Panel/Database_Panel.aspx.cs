@@ -20,6 +20,7 @@ namespace Project_HK.Control_Panel
     public partial class Db_Extract : System.Web.UI.Page
     {
         private List<ConnectionModel> connStrings = new List<ConnectionModel>();
+        private string user;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -40,7 +41,7 @@ namespace Project_HK.Control_Panel
 
                 // access logged in name Literal in Master page
                 Literal currentUser = this.Master.FindControl("currentUser") as Literal;
-                currentUser.Text = ticket.UserData.Split('|')[0];
+                user = currentUser.Text = ticket.UserData.Split('|')[0];
 
                 //check if admin
                 if (ticket.UserData.Split('|')[1].Equals("Administrator"))
@@ -103,7 +104,7 @@ namespace Project_HK.Control_Panel
 
             sb.Append(string.Format("[{0} {1}]\nUser: {2}\nDatabase: {3}\nServer: {4}\nExtracted XML:\n{5}\n", datetime.ToString("yyyy-mm-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
                                                     , TimeZoneInfo.Local.ToString().Substring(1, 9)
-                                                    , "John Smith"
+                                                    , user
                                                     , conn.dbname
                                                     , conn.servername
                                                     , xml));

@@ -42,11 +42,7 @@ namespace Project_HK.Accounts
                 authCookie.Value = FormsAuthentication.Encrypt(newTicket);
 
                 Response.Cookies.Add(authCookie);
-
-                if(user.role.Equals("Administrator"))
-                    Response.Redirect("~/Admin/UserAdmin.aspx", true);
-                else
-                    Response.Redirect("~/Control_Panel/Database_Panel.aspx", true);
+                Response.Redirect("~/Control_Panel/Database_Panel.aspx", true);
 
 
             }
