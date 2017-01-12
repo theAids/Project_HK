@@ -21,6 +21,7 @@ namespace Project_HK.Control_Panel
     {
         private List<ConnectionModel> connStrings = new List<ConnectionModel>();
         private string user;
+        private string role;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -28,12 +29,7 @@ namespace Project_HK.Control_Panel
             {
                 Response.Redirect("~/Accounts/Login.aspx", true);
             }
-        }
-
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!Page.IsPostBack)
+            else
             {
                 // get cookies
                 FormsIdentity id = HttpContext.Current.User.Identity as FormsIdentity;
@@ -42,16 +38,23 @@ namespace Project_HK.Control_Panel
                 // access logged in name Literal in Master page
                 Literal currentUser = this.Master.FindControl("currentUser") as Literal;
                 user = currentUser.Text = ticket.UserData.Split('|')[0];
+                role = ticket.UserData.Split('|')[1];
+            }
+        }
 
-                //check if admin
-                if (ticket.UserData.Split('|')[1].Equals("Administrator"))
-                    adminMenu.Controls.Add(new LiteralControl("<li><a href='../Admin/UserAdmin.aspx'><span class='glyphicon glyphicon-user icon'></span>User Admin</a></li>"));
 
-                // populate db panel
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {                // populate db panel
                 connStrings = DbConnManager.GetConnectionStrings();
                 this.db_connection.DataSource = connStrings;
                 this.db_connection.DataBind();
             }
+
+            //check if admin
+            if (role.Equals("Administrator"))
+                adminMenu.Controls.Add(new LiteralControl("<li><a href='../Admin/UserAdmin.aspx'><span class='glyphicon glyphicon-user icon'></span>User Admin</a></li>"));
         }
 
         protected void extractXML(object sender, CommandEventArgs e)
