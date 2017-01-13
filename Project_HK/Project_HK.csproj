@@ -144,6 +144,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Control_Panel\Database_Panel.aspx" />
     <Content Include="Admin\UserAdmin.aspx" />
+    <Content Include="Control_Panel\Edit_Profile.aspx" />
     <Content Include="Default.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -225,6 +226,13 @@
     <Compile Include="Admin\UserAdmin.aspx.cs">
       <DependentUpon>UserAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Panel\Edit_Profile.aspx.cs">
+      <DependentUpon>Edit_Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Panel\Edit_Profile.aspx.designer.cs">
+      <DependentUpon>Edit_Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

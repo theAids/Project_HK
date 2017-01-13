@@ -44,7 +44,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#"><span class="glyphicon glyphicon-pencil icon"></span>Settings </a>
+                                <a href="../Control_Panel/Edit_Profile.aspx"><span class="glyphicon glyphicon-pencil icon"></span>Settings </a>
                             </li>
                             <li>
                                 <asp:LinkButton runat="server" ID="logout_btn" OnClick="logout_btn_Click"><span class="glyphicon glyphicon-off icon"></span>Logout</asp:LinkButton>

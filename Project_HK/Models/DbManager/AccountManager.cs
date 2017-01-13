@@ -76,66 +76,7 @@ namespace Project_HK.Models.DbManager
                 }
             }
         }
-        /*
-        public static long GetUserID(string username)
-        {
-            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
-            {
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    conn.Open();
 
-                    string cmdstr = "SELECT userID FROM users WHERE username=@username";
-                    cmd.CommandText = cmdstr;
-                    cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
-                    cmd.Prepare();
-
-                    cmd.Parameters["@username"].Value = username;
-                    try
-                    {
-                        return Convert.ToInt64(cmd.ExecuteScalar());
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("GET USERID ERROR: " + e.ToString());
-                        return 0;
-                    }
-
-
-                }
-            }
-        }
-
-        public static long GetLastID(int roleID)
-        {
-            using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
-            {
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    conn.Open();
-
-                    string cmdstr = "SELECT MAX(userID) FROM users WHERE userID/1000 = @roleID";
-                    cmd.CommandText = cmdstr;
-                    cmd.Parameters.Add(new SqlParameter("@roleID", SqlDbType.Int));
-                    cmd.Prepare();
-
-                    cmd.Parameters["@roleID"].Value = roleID;
-
-                    try
-                    {
-                        var result = cmd.ExecuteScalar();
-                        long id = Convert.ToInt64(result ?? default(long)); //default of long is 0L if null
-                        return id;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("GET LAST ID ERROR: " + e.Message);
-                        return 0;
-                    }
-                }
-            }
-        }
-        */
         public static Boolean AddUser(string username, string firstname, string lastname, string password, string role)
         {
             using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
@@ -289,33 +230,13 @@ namespace Project_HK.Models.DbManager
         {
             using (SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
             {
-                conn.Open();
-                string salt = "";
-
-                // get the corresponding salt for the user
-                using (SqlCommand cmdPass = conn.CreateCommand())
-                {
-                    string cmdstr = "SELECT salt FROM users WHERE username=@username";
-                    cmdPass.CommandText = cmdstr;
-                    cmdPass.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
-                    cmdPass.Prepare();
-
-                    cmdPass.Parameters["@username"].Value = username;
-
-                    try
-                    {
-                        salt = cmdPass.ExecuteScalar().ToString();
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("DB QUERY ERROR: " + e.Message);
-                    }
-
-                }
-
+                
+                string salt = GetUserSalt(username);                
+                
                 // get username, lastname firstname and role for the cookies
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+                    conn.Open();
                     string cmdstr = "SELECT userID, username, lastname, firstname, role FROM users WHERE username=@username and password=@password";
                     cmd.CommandText = cmdstr;
                     cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
@@ -356,6 +277,64 @@ namespace Project_HK.Models.DbManager
             }
 
             return null;
+        }
+
+        public static string GetUserSalt(string username)
+        {
+            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            {
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    string cmdstr = "SELECT salt FROM users WHERE username=@username";
+                    cmd.CommandText = cmdstr;
+                    cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
+                    cmd.Prepare();
+
+                    cmd.Parameters["@username"].Value = username;
+
+                    try
+                    {
+                        string salt = cmd.ExecuteScalar().ToString();
+                        return salt;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("DB QUERY ERROR: " + e.Message);
+                        return null;
+                    }
+                }
+            }
+        }
+
+        public static string GetPassword(string username)
+        {
+            using(SqlConnection conn = DbConnManager.GetDbConnection("AccountConnection"))
+            {
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+
+                    string cmdstr = "SELECT password FROM users WHERE username=@username";
+                    cmd.CommandText = cmdstr;
+
+                    cmd.Parameters.Add(new SqlParameter("@username", SqlDbType.VarChar, 20));
+                    cmd.Prepare();
+
+                    cmd.Parameters["@username"].Value = username;
+
+                    try
+                    {
+                        return cmd.ExecuteScalar().ToString();
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.WriteLine("GET PASSWORD ERROR: " + e.Message);
+                        return null;
+                    }
+                }
+            }
         }
 
         public static List<UserAccountModel> GetAllUsers()

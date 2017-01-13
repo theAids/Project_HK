@@ -12,6 +12,9 @@ namespace Project_HK.Admin
 {
     public partial class UserAdmin : System.Web.UI.Page
     {
+        private string user;
+        private string username;
+        private string role;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -19,20 +22,25 @@ namespace Project_HK.Admin
             {
                 Response.Redirect("~/Accounts/Login.aspx", true);
             }
+            // get cookies
+            FormsIdentity id = HttpContext.Current.User.Identity as FormsIdentity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+
+            // access logged in name Literal in Master page
+            Literal currentUser = this.Master.FindControl("currentUser") as Literal;
+            user = currentUser.Text = ticket.UserData.Split('|')[0];
+            role = ticket.UserData.Split('|')[1];
+            username = ticket.Name;
+
+            if(!role.Equals("Administrator"))
+                Response.Redirect("~/Control_Panel/Database_Panel.aspx", true);
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                // get cookies
-                FormsIdentity id = HttpContext.Current.User.Identity as FormsIdentity;
-                FormsAuthenticationTicket ticket = id.Ticket;
-
-                // access logged in name Literal in Master page
-                Literal currentUser = this.Master.FindControl("currentUser") as Literal;
-                currentUser.Text = ticket.UserData.Split('|')[0];
-                current_user.Value = ticket.Name;
+                current_user.Value = username;
 
                 this.userList.DataSource = AccountManager.GetAllUsers();
                 this.userList.DataBind();
@@ -54,7 +62,7 @@ namespace Project_HK.Admin
                     case "1": role = "Administrator"; break;
                     case "2": role = "User"; break;
                 }
-                
+
                 if (AccountManager.AddUser(HttpUtility.HtmlEncode(uname.Text.Trim()), HttpUtility.HtmlEncode(fname.Text.Trim()), HttpUtility.HtmlEncode(lname.Text.Trim()), HttpUtility.HtmlEncode(pword1.Text.Trim()), role))
                 {
                     userAdd_status_panel.CssClass = "alert alert-success user-status";
@@ -110,9 +118,7 @@ namespace Project_HK.Admin
 
                 string username = HttpUtility.HtmlEncode(hidden.Value.ToString());
 
-                string password = pword1_edit.Text.Equals("") ? password = pword1_edit.Text : null;
-
-                if (AccountManager.EditUser(username, HttpUtility.HtmlAttributeEncode(fname_edit.Text.Trim()), HttpUtility.HtmlEncode(lname_edit.Text.Trim()), password, role))
+                if (AccountManager.EditUser(username, HttpUtility.HtmlAttributeEncode(fname_edit.Text.Trim()), HttpUtility.HtmlEncode(lname_edit.Text.Trim()), HttpUtility.HtmlEncode(pword1_edit.Text.Trim()), role))
                 {
                     userEdit_status_panel.CssClass = "alert alert-success user-status";
                     userEdit_status_icon.CssClass = "glyphicon glyphicon-ok-circle";
@@ -126,7 +132,7 @@ namespace Project_HK.Admin
                 {
                     userEdit_status_panel.CssClass = "alert alert-danger user-status";
                     userEdit_status_icon.CssClass = "glyphicon glyphicon-remove-circle";
-                    userEdit_status_lit.Text = "Adding user failed!";
+                    userEdit_status_lit.Text = "Update failed!";
                 }
 
                 username_label.Text = hidden.Value;
