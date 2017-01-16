@@ -68,6 +68,7 @@
                                     </div>
                                     <!-- / old password -->
                                     <!-- new password field -->
+                                    <asp:RegularExpressionValidator runat="server" ValidationGroup="userValidation_edit" Display="Dynamic" Font-Italic="true" CssClass="col-sm-offset-3" ControlToValidate="pword1_edit" ErrorMessage="Password must be at least 8 characters in length." ValidationExpression="^(?:.{8,}|)$" ForeColor="red"/>
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="pword1_edit">New Password</label>
                                         <div class="col-sm-9">
