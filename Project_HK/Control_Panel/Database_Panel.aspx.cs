@@ -106,7 +106,7 @@ namespace Project_HK.Control_Panel
             StringBuilder sb = new StringBuilder();
 
             sb.Append(string.Format("[{0} {1}]\nUser: {2}\nDatabase: {3}\nServer: {4}\nExtracted XML:\n{5}\n", datetime.ToString("yyyy-mm-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
-                                                    , TimeZoneInfo.Local.ToString().Substring(1, 9)
+                                                    , TimeZoneInfo.Local.ToString()
                                                     , user
                                                     , conn.dbname
                                                     , conn.servername

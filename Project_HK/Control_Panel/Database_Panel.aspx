@@ -7,7 +7,7 @@
         <ul class="nav navbar-inverse nav-sidebar">
             <li class="active"><a href="Database_Panel.aspx"><span class="glyphicon glyphicon-folder-close icon"></span>Database<span class="sr-only">(current)</span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-signal icon"></span>Tableau</a></li>
-            <asp:PlaceHolder runat="server" ID="adminMenu" /> 
+            <asp:PlaceHolder runat="server" ID="adminMenu" />
         </ul>
     </div>
     <!-- / Side Bar -->
@@ -62,6 +62,11 @@
                     <div class="panel-body">
                         <asp:UpdatePanel runat="server" ID="logUpdatePanel">
                             <ContentTemplate>
+                                <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="logUpdatePanel" DynamicLayout="true">
+                                    <ProgressTemplate>
+                                        <div class="alert alert-info user-status"><i>Clearing Logs...</i></div>
+                                    </ProgressTemplate>
+                                </asp:UpdateProgress>
                                 <asp:Literal runat="server" ID="logPanel" />
                             </ContentTemplate>
                             <Triggers>
