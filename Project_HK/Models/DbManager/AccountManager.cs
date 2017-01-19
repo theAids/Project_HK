@@ -43,9 +43,6 @@ namespace Project_HK.Models.DbManager
                     }
                 }
             }
-
-            //Default admin account
-            AddUser("admin", "admin", "user", "admin123", "Administrator");
         }
 
         public static string GetUsername(string username)

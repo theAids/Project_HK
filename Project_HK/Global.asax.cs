@@ -19,6 +19,8 @@ namespace Project_HK
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AccountManager.CreateAccountsTable();
+            //Default user, comment if necessary
+            AccountManager.AddUser("admin", "admin", "user", "admin123", "Administrator");
         }
     }
 }

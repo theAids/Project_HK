@@ -137,9 +137,22 @@ ul.navbar-right{
 }
 
 .log-panel {
-    min-height: 459x;
+    min-height: 459px;
     height: 459px;
     overflow-y: auto;
+}
+
+/*
+    clear logs
+*/
+
+.clear-log:before{
+    content: "Clearing logs...";
+    z-index: 1;
+    position: relative;
+    top: 45%;
+    left: 35%;
+    font-style: italic;
 }
 
 

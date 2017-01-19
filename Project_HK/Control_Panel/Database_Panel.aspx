@@ -54,18 +54,15 @@
 
             <!-- Action Log -->
             <div class="col-sm-6 col-md-5">
-                <div class="panel panel-info  log-panel">
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         <span class="glyphicon glyphicon-log-in icon"></span>Export Log
-                    <asp:LinkButton runat="server" ID="clearBtn" OnClick="ClearLog" CssClass="pull-right">Clear</asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="clearBtn" OnClick="ClearLog" OnClientClick="clear_logs()" CssClass="pull-right">Clear</asp:LinkButton>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body log-panel">
                         <asp:UpdatePanel runat="server" ID="logUpdatePanel">
                             <ContentTemplate>
                                 <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="logUpdatePanel" DynamicLayout="true">
-                                    <ProgressTemplate>
-                                        <div class="alert alert-info user-status"><i>Clearing Logs...</i></div>
-                                    </ProgressTemplate>
                                 </asp:UpdateProgress>
                                 <asp:Literal runat="server" ID="logPanel" />
                             </ContentTemplate>
@@ -103,5 +100,15 @@
         <!-- / Confirmation Modal -->
     </div>
 
+    <script type="text/javascript">
+        function pageLoad() {
+            $('.log-panel').removeClass('clear-log').css('opacity', '');
+        }
+
+        //clear log async progress status
+        function clear_logs() {
+            $('.log-panel').addClass('clear-log').css('opacity',0.5);
+        }
+    </script>
 
 </asp:Content>
