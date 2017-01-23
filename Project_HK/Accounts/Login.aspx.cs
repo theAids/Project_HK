@@ -28,6 +28,7 @@ namespace Project_HK.Accounts
 
             UserAccountModel user = AccountManager.ValidateUser(username.Text.Trim(), pword.Text.Trim());
 
+
             if (user != null)
             {
                 HttpCookie authCookie = FormsAuthentication.GetAuthCookie(user.username, false);
@@ -37,9 +38,12 @@ namespace Project_HK.Accounts
                                                                                    , ticket.Name
                                                                                    , ticket.IssueDate
                                                                                    , ticket.Expiration
-                                                                                   , ticket.IsPersistent
+                                                                                   , remChk.Checked
                                                                                    , string.Format("{0} {1}|{2}", user.firstname, user.lastname, user.role));
                 authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+
+                if (remChk.Checked)
+                    authCookie.Expires = ticket.Expiration;
 
                 Response.Cookies.Add(authCookie);
                 Response.Redirect("~/Control_Panel/Database_Panel.aspx", true);
