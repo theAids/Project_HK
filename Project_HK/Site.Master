@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title><%: Page.Title %> - Project HK</title>
-    <link rel="stylesheet" href="Content/dataTables.bootstrap.min.css" />
     <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/Content/data") %>
         <%: Scripts.Render("~/bundles/modernizr") %>
        
     </asp:PlaceHolder>
@@ -62,9 +62,5 @@
         </div>
     </form>
 </body>
-<%: Scripts.Render("~/Scripts/Site.js") %>
-<%: Scripts.Render("~/Scripts/jquery-1.12.4.js") %>
-<%: Scripts.Render("~/Scripts/jquery.dataTables.min.js") %>
-<%: Scripts.Render("~/Scripts/dataTables.bootstrap.min.js") %>
-
+<%: Scripts.Render("~/Scripts/data") %>
 </html>

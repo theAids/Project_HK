@@ -34,6 +34,16 @@ namespace Project_HK
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/data").Include(
+                            "~/Scripts/Site.js",
+                            "~/Scripts/jquery.dataTables.min.js",
+                            "~/Scripts/dataTables.bootstrap.min.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/Content/data").Include(
+                            "~/Content/dataTables.bootstrap.min.css"
+                ));
+
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
                 new ScriptResourceDefinition

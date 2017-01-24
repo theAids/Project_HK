@@ -140,12 +140,5 @@ namespace Project_HK.Admin
 
             }
         }
-
-        /*
-        protected void uname_TextChanged(object sender, EventArgs e)
-        {
-            unameVal.Validate();
-        }
-        */
     }
 }
